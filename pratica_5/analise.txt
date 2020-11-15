@@ -1,0 +1,12 @@
+int isSimetric(int **A, int n) é O(n²)
+
+f(primeiro for) = 1--(atribuićão transposta) + 1--(i=0) + (n+1)--(i<n) + 2n--(atribuicao e index transposta[i]) + 2n--(i=i+1)
+f(segundo for) =  1--(i=0) + (n+1)--(comparacão i<n) + 2n--(i=i+1) + n--(j=0) + n*(n+1)--(comparacão j<n) + n*2n--(j=j+1) + 5n²--(transposta[i][j] = A[j][i])
+
+f(terceiro for) = 1--(i=0) + (n+1)--(comparacão i<n) + 2n--(i=i+1) + n--(j=0) + n*(n+1)--(comparacão j<n) + n*2n--(j=j+1) + 5n²--(if (A[i][j]!=transposta[i][j]))
+
+
+int **matriz_multipl(int n, int **A, int **B) é O(n³)
+
+
+int calc_traco(int **A, int n) é O(n²)
