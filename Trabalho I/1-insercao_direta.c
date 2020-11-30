@@ -17,7 +17,6 @@ void insert_sort(int array[], int n) //o vetor a tem que ter tamanho N + 1
     }
 }
 
-
 void insertionSort(int arr[], int n)
 {
     int i, key, j;
@@ -57,6 +56,6 @@ int main()
         }
         a[j] = x;
     }
-    
+
     return 0;
 }

@@ -1,20 +1,20 @@
-
+// Heapsort da aula
 // faz com que o elemento em a[L], do heap dado por a[1] até a[R],
 // obedeca a propriedade do heap máximo
 void heapify(int array[], int L, int R)
 {
     int i, j, x;
 
-    i = L;
-    j = 2 * L;
+    i = L + 1;
+    j = 2 * L + 1;
     x = array[L];
 
-    while ((j < R) && (array[j] < array[j + 1]))
+    if ((j < R) && (array[j] < array[j + 1]))
     {
         j++;
     }
 
-    while ((j <= R) && (x <= array[j]))
+    while ((j <= R) && (x < array[j]))
     {
         array[i] = array[j];
         i = j;
@@ -41,27 +41,20 @@ void heapsort_1(int array[], int L, int N)
 void heapsort(int array[], int N)
 {
     int L, R, w;
-    for (L = N / 2; L == 1; L--)
+    for (L = N / 2 - 1; L >= 0; L--)
     {
         heapify(array, L, N);
     }
-    for (R = N; R == 2; R--)
+    for (R = N - 1; R > 0; R--)
     {
-        w = array[1];
-        array[1] = array[R];
+        w = array[0];
+        array[0] = array[R];
         array[R] = w;
         heapify(array, 1, R - 1);
     }
 }
 
-
-
-
-
-
-
-
-// HEAPSORT DO IME
+// HEAPSORT DO IME -----------------------------------------------------
 void troca(int A, int B)
 {
     int t = A;
@@ -132,5 +125,77 @@ void heapsort(int n, int v[])
     {
         troca(v[1], v[m]);
         peneira(m - 1, v);
+    }
+}
+
+// heapsort do livro -----------------------------------------------------------------
+
+// MAXHEAPIFY - mantém a propriedade de heap de máximo,
+//
+// Heap de Máximo: O valor de um nó é, no máximo, o valor de seu pai. Assim, o maior
+// elemento em um heap de máximo é armazenado na raiz, e a subárvore
+// que tem raiz em um nó contém valores menores que o próprio nó.
+//
+// entradas:
+//      A = arranjo qualquer
+//      i = índice para o arranjo
+// Left(i) = 2*i
+// Right(i) = 2*i + 1
+void maxHeapify(int A[], int i)
+{
+    int l, r;
+    l = 2 * i;
+    r = 2 * i + 1;
+}
+
+
+// ACHO QUE ESSE FUNCIONA (IMPLEMENTACAO DO LIVRO) -----------------------------------------------------
+// To heapify a subtree rooted with node i which is
+// an index in arr[]. n is size of heap
+void heapify(int arr[], int n, int i)
+{
+    int largest, l, r;
+
+    largest = i;   // Initialize largest as root
+    l = 2 * i + 1; // left = 2*i + 1
+    r = 2 * i + 2; // right = 2*i + 2
+
+    // If left child is larger than root
+    if (l < n && arr[l] > arr[largest])
+        largest = l;
+
+    // If right child is larger than largest so far
+    if (r < n && arr[r] > arr[largest])
+        largest = r;
+
+    // If largest is not root
+    if (largest != i)
+    {
+        int temp = arr[i];
+        arr[i] = arr[largest];
+        arr[largest] = arr[i];
+
+        // Recursively heapify the affected sub-tree
+        heapify(arr, n, largest);
+    }
+}
+
+// main function to do heap sort
+void heapsort(int a[], int n)
+{
+    // Build heap (rearrange array)
+    for (int i = n / 2 - 1; i >= 0; i--)
+        heapify(a, n, i);
+
+    // One by one extract an element from heap
+    for (int i = n - 1; i > 0; i--)
+    {
+        // Move current root to end
+        int temp = a[0];
+        a[0] = a[i];
+        a[i] = temp;
+
+        // call max heapify on the reduced heap
+        heapify(a, i, 0);
     }
 }

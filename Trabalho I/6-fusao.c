@@ -75,6 +75,7 @@ void mergeSort(int arr[], int l, int r)
     merge(arr, l, m, r);
 }
 
+//algoritmo LIVRO AULA IC2
 void Merge(int array[], int p, int q, int r)
 {
     int n1, n2, i, j, k;
@@ -144,4 +145,84 @@ void MergeSort(int array[], int p, int r)
     mergeSort(array, p, q);
     mergeSort(array, q + 1, r);
     merge(array, p, q, r);
+}
+
+//---------------------------------------------------------------------------------------------
+//FUNCOES AULAS DO TINOS
+void Merge(int a[], int L, int h, int R, int c[])
+{
+    int i, j, k;
+
+    i = L;
+    j = h + 1;
+    k = L - 1;
+
+    while ((i <= h) && (j <= R))
+    {
+        k++;
+        if (a[i] < a[j])
+        {
+            c[k] = a[i];
+            i++;
+        }
+        else
+        {
+            c[k] = a[j];
+            j++;
+        }
+    }
+
+    while (i <= h)
+    {
+        k++;
+        c[k] = a[i];
+        i++;
+    }
+
+    while (j <= R)
+    {
+        k++;
+        c[k] = a[j];
+        j++;
+    }
+}
+
+void Mpass(int a[], int N, int p, int c[])
+{
+    int i;
+
+    i = 1;
+
+    while (i <= N - 2 * p + 1)
+    {
+        Merge(a, i, (i + p - 1), (i + 2 * p - 1), c);
+        i = i + 2 * p;
+    }
+
+    if ((i + p - 1) < N)
+    {
+        Merge(a, i, (i + p - 1), N, c);
+    }
+
+    else
+    {
+        for (int j = i; j <= N; j++)
+        {
+            c[j] = a[j];
+        }
+    }
+}
+
+void Mergesort(int a[], int N)
+{
+    int p, c[];
+    p = 1;
+
+    while (p < N)
+    {
+        Mpass(a, N, p, c);
+        p = 2 * p;
+        Mpass(c, N, p, a);
+        p = 2 * p;
+    }
 }

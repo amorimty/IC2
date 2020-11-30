@@ -1,3 +1,4 @@
+// implementacao aula de IC2
 void ordenacao_selec(int a[], int n)
 {
     int indice_menor, i, j, x;
@@ -20,6 +21,7 @@ void ordenacao_selec(int a[], int n)
 }
 
 
+// implementacao geek for geeks
 void selectionSort(int arr[], int n) 
 { 
     int i, j, min_idx; 

@@ -1,5 +1,4 @@
-
-
+//algoritmo aula do tinos
 void bubble_sort(int a[], int n)
 {
     int i, j, temp;
