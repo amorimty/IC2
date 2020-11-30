@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-void heapsort(int a[], int L, int R)
+void heapify(int a[], int L, int R)
 {
 
 	int i, j, x;
@@ -33,14 +33,14 @@ void heapsort(int a[], int L, int R)
 	a[i] = x;
 }
 
-heapfy(int a[], int N)
+heapsort(int a[], int N)
 {
 
 	int L, R, m;
 
 	for (L = N / 2; L >= 1; L--)
 	{
-		heapsort(a, L, N);
+		heapify(a, L, N);
 	}
 
 	for (R = N; R >= 2; R--)
@@ -50,7 +50,7 @@ heapfy(int a[], int N)
 		a[1] = a[R];
 		a[R] = m;
 
-		heapsort(a, 1, R - 1);
+		heapify(a, 1, R - 1);
 	}
 }
 
@@ -71,7 +71,7 @@ int main()
 
 	printf("\n");
 
-	heapfy(v, size);
+	heapsort(v, size);
 
 	for (i = 1; i <= size; i++)
 	{

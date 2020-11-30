@@ -6,25 +6,32 @@ void heapsort(int array[], int N);
 
 int main()
 {
+    // nesse daqui o vetor comeca no 1, entao declarar vetor como n+1
     int n, i;
 
     printf("Digite o tamanho do vetor: ");
     scanf("%d", &n);
 
-    int array[n];
+    int array[n + 1];
 
-    for (i = 0; i < n; i++)
+    for (i = 1; i <= n; i++)
     {
-        printf("\nDigite um número para o índice %d: ", i);
+        printf("\nDigite um número para o índice %d: ", i + 1);
         scanf("%d", &array[i]);
     }
+
+    for (i = 1; i <= n; i++)
+    {
+        printf("vetor[%i] == %d   ", i, array[i]);
+    }
+    printf("\n");
 
     heapsort(array, n);
 
     /* imprime o vetor ordenado */
-    for (i = 0; i < n; i++)
+    for (i = 1; i <= n; i++)
     {
-        printf("%d ", array[i]);
+        printf("vetor[%i] == %d   ", i, array[i]);
     }
     printf("\n");
 
@@ -33,43 +40,51 @@ int main()
 
 void heapify(int array[], int L, int R)
 {
-    int i, j, x;
+   
+	int i, j, x;
 
-    i = L + 1;
-    j = 2 * L + 1;
-    x = array[L];
+	i = L;
+	j = 2 * L;
+	x = array[L];
 
-    if ((j < R) && (array[j] < array[j + 1]))
-    {
-        j++;
-    }
+	if ((j < R) && (array[j] < array[j + 1]))
+	{
+		j++;
+	}
 
-    while ((j <= R) && (x < array[j]))
-    {
-        array[i] = array[j];
-        i = j;
-        j = j * 2;
+	while ((j <= R) && (x < array[j]))
+	{
 
-        if ((j < R) && (array[j] < array[j + 1]))
-        {
-            j++;
-        }
-    }
-    array[i] = x;
+		array[i] = array[j];
+		i = j;
+		j = 2 * j;
+
+		if ((j < R) && (array[j] < array[j + 1]))
+		{
+			j++;
+		}
+	}
+
+	array[i] = x;
 }
 
 void heapsort(int array[], int N)
 {
-    int L, R, w;
-    for (L = N / 2 - 1; L >= 0; L--)
-    {
-        heapify(array, L, N);
-    }
-    for (R = N - 1; R > 0; R--)
-    {
-        w = array[0];
-        array[0] = array[R];
-        array[R] = w;
-        heapify(array, 1, R - 1);
-    }
+
+	int L, R, m;
+
+	for (L = N / 2; L >= 1; L--)
+	{
+		heapify(array, L, N);
+	}
+
+	for (R = N; R >= 2; R--)
+	{
+
+		m = array[1];
+		array[1] = array[R];
+		array[R] = m;
+
+		heapify(array, 1, R - 1);
+	}
 }

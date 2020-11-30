@@ -1,6 +1,5 @@
 #include <stdio.h>
 
-// ESSE AQUI TA DANDO TRETA
 int partition(int a[], int p, int r);
 void quicksort(int a[], int p, int r);
 
