@@ -1,89 +1,101 @@
 #include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
+#include <time.h>
 
-// ESSE DAQUI TA DANDO TRETA
-void heapify(int arr[], int n, int i);
-void heapsort(int a[], int n);
+void heapify(int a[], int L, int R)
+{
+
+	int i, j, x, comparacao = 0, movimento = 0;
+
+	i = L;
+	j = 2 * L;
+	x = a[L];
+    movimento++;
+
+    comparacao++;
+	if ((j < R) && (a[j] < a[j + 1]))
+	{
+		j++;
+	}
+
+	while ((j <= R) && (x < a[j]))
+	{
+        comparacao++;
+        movimento++;
+		a[i] = a[j];
+		i = j;
+		j = 2 * j;
+
+        comparacao++;
+		if ((j < R) && (a[j] < a[j + 1]))
+		{
+			j++;
+		}
+	}
+    movimento++;
+	a[i] = x;
+    printf("\nforam %d comparacoes e %d movimentos\n", comparacao, movimento);
+
+}
+
+void heapsort(int a[], int N)
+{
+
+	int L, R, m, comparacao = 0, movimento = 0;
+
+	for (L = N / 2; L >= 1; L--)
+	{
+		heapify(a, L, N);
+	}
+
+	for (R = N; R >= 2; R--)
+	{
+        movimento += 3;
+		m = a[1];
+		a[1] = a[R];
+		a[R] = m;
+
+		heapify(a, 1, R - 1);
+	}
+    printf("\nforam %d comparacoes e %d movimentos\n", comparacao, movimento);
+}
 
 int main()
 {
-    int n, i;
 
-    printf("Digite o tamanho do vetor: ");
-    scanf("%d", &n);
+	// nesse daqui o vetor comeca no 1, entao declarar vetor como n+1
+	int n, i;
 
-    int array[n];
+	printf("Digite o tamanho do vetor: ");
+	scanf("%d", &n);
 
-    for (i = 0; i < n; i++)
-    {
-        printf("\nDigite um número para o índice %d: ", i);
-        scanf("%d", &array[i]);
-    }
+	int array[n + 1];
 
-    heapsort(array, n);
+	for (i = 1; i <= n; i++)
+	{
+		printf("\nDigite um número para o índice %d: ", i + 1);
+		scanf("%d", &array[i]);
+	}
 
-    /* imprime o vetor ordenado */
-    for (i = 0; i < n; i++)
-    {
-        printf("%d ", array[i]);
-    }
-    printf("\n");
+	for (i = 1; i <= n; i++)
+	{
+		printf("vetor[%i] == %d   ", i, array[i]);
+	}
+	printf("\n");
 
-    return 0;
-}
+    //{7, 11, 18, 42, 43, 52, 69, 94}
+    //{94, 69, 52, 43, 42, 18, 11, 7}
+    //{11, 52, 43, 42, 94, 18, 7, 69}
+	heapsort(array, n);
 
-void heapify(int arr[], int n, int i)
-{
-    int largest, l, r;
 
-    largest = i;   // Initialize largest as root
-    l = 2 * i + 1; // left = 2*i + 1
-    r = 2 * i + 2; // right = 2*i + 2
+	/* imprime o vetor ordenado */
+	for (i = 1; i <= n; i++)
+	{
+		printf("vetor[%i] == %d   ", i, array[i]);
+	}
+	printf("\n");
 
-    // If left child is larger than root
-    if (l <= n && arr[l] > arr[i])
-    {
-        largest = l;
-    }
-    else
-    {
-        largest = i;
-    }
-
-    // If right child is larger than largest so far
-    if (r <= n && arr[r] > arr[largest])
-        largest = r;
-
-    // If largest is not root
-    if (largest != i)
-    {
-        int temp = arr[i];
-        arr[i] = arr[largest];
-        arr[largest] = arr[i];
-
-        // Recursively heapify the affected sub-tree
-        heapify(arr, n, largest);
-    }
-}
-
-// main function to do heap sort
-void heapsort(int a[], int n)
-{
-    int i;
-    // Build heap (rearrange array)
-    for (i = (n / 2) - 1; i > 0; i--)
-        heapify(a, n, i);
-
-    // One by one extract an element from heap
-    for (i = n - 1; i > 0; i--)
-    {
-        // Move current root to end
-        int temp = a[0];
-        a[0] = a[i];
-        a[i] = temp;
-
-        n--;
-
-        // call max heapify on the reduced heap
-        heapify(a, n, 0);
-    }
+	return 0;
 }

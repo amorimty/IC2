@@ -1,12 +1,12 @@
 #include <stdio.h>
 
-int partition(int a[], int p, int r);
-void quicksort(int a[], int p, int r);
+void qsort(int a[], int L, int R);
 
 int main()
 {
     int n, i;
 
+	/*
     printf("Digite o tamanho do vetor: ");
     scanf("%d", &n);
 
@@ -17,8 +17,19 @@ int main()
         printf("\nDigite um número para o índice %d: ", i);
         scanf("%d", &array[i]);
     }
+	*/
 
-    quicksort(array, 0, n-1);
+	// {7, 11, 18, 42, 43, 52, 69, 94}
+	// {94, 69, 52, 43, 42, 18, 11, 7}
+	// {11, 52, 43, 42, 94, 18, 7, 69}
+
+	int array[] = {7, 11, 18, 42, 43, 52, 69, 94};
+	n = 8;
+	
+
+    qsort(array, 0, n-1);
+
+    printf("\n");
 
     /* imprime o vetor ordenado */
     for (i = 0; i < n; i++)
@@ -31,33 +42,47 @@ int main()
 }
 
 
-int partition(int a[], int p, int r)
+void qsort(int a[], int L, int R)
 {
-    int x, i, j, temp;
-    x = a[r];
-    i = p - 1;
+	int i, j, x, w, comparacao = 0, movimento = 0;
+	j = R;
+	i = L;
+	x = a[(L + R)/2];
+	movimento++;
 
-    for (j = p; j < r; j++)
-    {
-        if (a[j] <= x)
-        {
-            i++;
-            temp = a[i];
-            a[i] = a[j];
-            a[j] = temp;
-        }
-    }
-    temp = a[i + 1];
-    a[i + 1] = a[r];
-    a[r] = temp;
-    return (i + 1);
-}
-void quicksort(int a[], int p, int r)
-{
-    if (p < r)
-    {
-        int q = partition(a, p, r);
-        quicksort(a, p, q - 1);
-        quicksort(a, q + 1, r);
-    }
+	do
+	{
+		comparacao++;
+		while (a[i] < x)
+		{
+			comparacao++;
+			i++;
+		}
+		comparacao++;
+		while (x < a[j])
+		{
+			comparacao++;
+			j--;
+		}
+		if (i <= j)
+		{
+			movimento += 3;
+			w = a[i];
+			a[i] = a[j];
+			a[j] = w;
+			i++;
+			j--;
+		}
+
+	} while (i <= j);
+
+	if (L < j)
+	{
+		qsort(a, L, j);
+	}
+	if (i < R)
+	{
+		qsort(a, i, R);
+	}
+	printf("\nmovimentacoes = %d e comparacoes = %d", movimento, comparacao);
 }

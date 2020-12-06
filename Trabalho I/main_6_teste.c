@@ -33,13 +33,46 @@ int main()
     return 0;
 }
 
-void Merge(int array[], int p, int q, int r)
+void Merge(int array[], int L, int M, int N)
 {
-    int n1, n2, i, j, k;
+    int n1, n2, i = 0, j = 0, k = 0;
     int comparacao = 0, movimento = 0;
 
-    n1 = q - p + 1;
-    n2 = r - q;
+
+    int b[M - L + 1], c[N - M];
+
+    while (i < N && j <= M)
+    {
+        k++;
+        if (array[i] < b[j])
+        {
+            c[k] = array[i];
+            i++;
+        }
+        else
+        {
+            c[k] = b[j];
+            j++;
+        }
+    }
+
+    while (i <= N)
+    {
+        k++;
+        c[k] = array[i];
+        i++;
+    }
+
+    while (j <= M)
+    {
+        k++;
+        c[k] = b[j];
+        j++;
+    }
+    
+    
+    
+
 
     // arrays temporários
     int L[n1], R[n2];
@@ -48,12 +81,12 @@ void Merge(int array[], int p, int q, int r)
     for (i = 0; i < n1; i++)
     {
         movimento++;
-        L[i] = array[p + i];
+        L[i] = array[L + i];
     }
     for (j = 0; j < n2; j++)
     {
         movimento++;
-        R[j] = array[q + j + 1];
+        R[j] = array[M + j + 1];
     }
     // Merge the temp arrays back into arr[l..r]
 
@@ -62,7 +95,7 @@ void Merge(int array[], int p, int q, int r)
     // Initial index of second subarray
     j = 0;
     // Initial index of merged subarray
-    k = p;
+    k = L;
 
     while (i < n1 && j < n2)
     {
